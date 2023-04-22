@@ -1,11 +1,11 @@
 # utaa_ecampus
 
 # 22.04.2023 - Yurtkan
-Login ve Welcome page yapıldı
-Home Page den bu sayfaları denemek için button eklendi
-Uygulama adı düzeltilti
-AppIcon değiştirildi
-Splash screen eklendi
+Login ve Welcome page yapıldı<br>
+Home Page den bu sayfaları denemek için button eklendi<br>
+Uygulama adı düzeltilti<br>
+AppIcon değiştirildi<br>
+Splash screen eklendi<br>
 
 
 ## Flutter Version
