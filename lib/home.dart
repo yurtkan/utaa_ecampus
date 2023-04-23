@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:utaa_ecampus/screens/auth/login_screen.dart';
 import 'package:utaa_ecampus/screens/auth/welcome_screen.dart';
+import 'package:utaa_ecampus/screens/main_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -89,6 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: Text('Login PAGE'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainScreen(),
+                  ),
+                );
+              },
+              child: Text('Main PAGE'),
             ),
           ],
         ),

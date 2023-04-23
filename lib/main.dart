@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:utaa_ecampus/screens/home.dart';
+import 'package:utaa_ecampus/home.dart';
 //import '../screens/home.dart';
 
 void main() {

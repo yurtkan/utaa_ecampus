@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * 0.45,
+            height: MediaQuery.of(context).size.height * 0.50,
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.60,
+              height: MediaQuery.of(context).size.height * 0.55,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -73,19 +73,19 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(
                   left: 20.0,
-                  right: 20,
+                  right: 20.0,
                 ),
                 child: Column(
                   children: <Widget>[
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     const Image(
                       image: AssetImage('assets/images/logo/logow.png'),
                       height: 100,
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 40,
                     ),
                     TextFormField(
                       keyboardType: TextInputType.text,
@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 40,
                     ),
                     SizedBox(
                       height: 45,
@@ -178,12 +178,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: double.infinity,
             ),
           ),
         ],
