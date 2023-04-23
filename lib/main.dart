@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:utaa_ecampus/home.dart';
+import 'package:utaa_ecampus/side_menu.dart';
 //import '../screens/home.dart';
 
 void main() {
@@ -17,9 +19,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
+      //home: SideMenu(),
     );
   }
 }

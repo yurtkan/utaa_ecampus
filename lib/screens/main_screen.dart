@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/services.dart';
 import 'package:utaa_ecampus/screens/calendar/calendar_screen.dart';
 import 'package:utaa_ecampus/screens/home/home_screen.dart';
 import 'package:utaa_ecampus/screens/notifications/notifications_screen.dart';
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     const items = <Widget>[
       Icon(
-        Icons.add,
+        Icons.notifications,
         size: 30,
       ),
       Icon(
@@ -48,19 +49,27 @@ class _MainScreenState extends State<MainScreen> {
       const ProfileScreen(),
     ];
 
-    return Scaffold(
-      extendBody: true,
-      bottomNavigationBar: CurvedNavigationBar(
-        key: navigationKey,
-        backgroundColor: Colors.transparent,
-        animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 300),
-        items: items,
-        height: 60,
-        index: index,
-        onTap: (index) => setState(() => this.index = index),
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        //top: false,
+        child: ClipRect(
+          child: Scaffold(
+            extendBody: true,
+            bottomNavigationBar: CurvedNavigationBar(
+              key: navigationKey,
+              backgroundColor: Colors.transparent,
+              animationCurve: Curves.easeInOut,
+              animationDuration: Duration(milliseconds: 300),
+              items: items,
+              height: 60,
+              index: index,
+              onTap: (index) => setState(() => this.index = index),
+            ),
+            body: screens[index],
+          ),
+        ),
       ),
-      body: screens[index],
     );
   }
 }

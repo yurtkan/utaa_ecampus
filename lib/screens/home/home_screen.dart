@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,12 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Column(
             children: <Widget>[
-              const SafeArea(
-                child: Center(
-                  child: Image(
-                    image: AssetImage('assets/images/logo/logo.png'),
-                    height: 100,
-                  ),
+              const Center(
+                child: Image(
+                  image: AssetImage('assets/images/logo/logo.png'),
+                  height: 100,
                 ),
               ),
               SizedBox(
