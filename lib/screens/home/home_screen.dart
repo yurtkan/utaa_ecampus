@@ -12,6 +12,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -19,17 +24,32 @@ class _HomeScreenState extends State<HomeScreen> {
             right: 30,
           ),
           child: Column(
-            children: <Widget>[
-              const Center(
+            children: const <Widget>[
+              Center(
                 child: Image(
                   image: AssetImage('assets/images/logo/logo.png'),
                   height: 100,
                 ),
               ),
               SizedBox(
-                height: 0,
+                height: 10,
               ),
-              Row(),
+              //Row(),
+              Placeholder(),
+              SizedBox(
+                height: 10,
+              ),
+              //Row(),
+              Placeholder(),
+              SizedBox(
+                height: 10,
+              ),
+              //Row(),
+              Placeholder(),
+              SizedBox(
+                height: 10,
+              ),
+              //Row(),
               Placeholder(),
             ],
           ),

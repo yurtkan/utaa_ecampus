@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:utaa_ecampus/home.dart';
-import 'package:utaa_ecampus/side_menu.dart';
+import 'package:utaa_ecampus/components/side_menu.dart';
 //import '../screens/home.dart';
 
 void main() {
@@ -18,6 +18,14 @@ class MyApp extends StatelessWidget {
       title: 'UTAA eCampus',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            //systemStatusBarContrastEnforced: false,
+            systemNavigationBarColor: Colors.transparent,
+            //systemNavigationBarContrastEnforced: false,
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),

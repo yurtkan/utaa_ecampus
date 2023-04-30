@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 bool _passwordVisible = false;
@@ -21,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         centerTitle: true,
         title: Title(
           color: Colors.white,

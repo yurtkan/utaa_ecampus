@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
     return Container(
       color: Colors.white,
       child: SafeArea(
-        //top: false,
+        top: false,
         child: ClipRect(
           child: Scaffold(
             extendBody: true,
