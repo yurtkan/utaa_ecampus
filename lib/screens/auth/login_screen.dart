@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.light,
           statusBarColor: Colors.transparent,
           systemNavigationBarColor: Color.fromARGB(255, 0, 145, 228),
         ),

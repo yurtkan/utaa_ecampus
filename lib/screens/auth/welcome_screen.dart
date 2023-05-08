@@ -14,6 +14,7 @@ class WelcomeScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.light,
           statusBarColor: Colors.transparent,
           systemNavigationBarColor: Color.fromARGB(255, 239, 239, 239),
         ),

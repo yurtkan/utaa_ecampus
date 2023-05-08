@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:utaa_ecampus/screens/ringinfo/ringinfo_screen.dart';
 import 'package:utaa_ecampus/screens/calendar/calendar_screen.dart';
@@ -55,6 +56,16 @@ class _MainScreenState extends State<MainScreen> {
         top: false,
         child: ClipRect(
           child: Scaffold(
+            appBar: AppBar(
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarIconBrightness: Brightness.dark,
+                statusBarColor: Colors.white,
+                systemNavigationBarColor: Colors.white,
+              ),
+              backgroundColor: Colors.white,
+              elevation: 0,
+              toolbarHeight: 0,
+            ),
             extendBody: true,
             bottomNavigationBar: CurvedNavigationBar(
               key: navigationKey,
