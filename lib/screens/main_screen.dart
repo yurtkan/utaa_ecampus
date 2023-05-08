@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/services.dart';
+import 'package:utaa_ecampus/screens/ringinfo/ringinfo_screen.dart';
 import 'package:utaa_ecampus/screens/calendar/calendar_screen.dart';
 import 'package:utaa_ecampus/screens/home/home_screen.dart';
-import 'package:utaa_ecampus/screens/notifications/notifications_screen.dart';
 import 'package:utaa_ecampus/screens/profile/profile_screen.dart';
+import 'package:utaa_ecampus/screens/studentcard/studentcard_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,11 +20,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     const items = <Widget>[
       Icon(
-        Icons.notifications,
+        Icons.badge,
         size: 30,
       ),
       Icon(
-        Icons.add,
+        Icons.departure_board,
         size: 30,
       ),
       Icon(
@@ -42,8 +42,8 @@ class _MainScreenState extends State<MainScreen> {
     ];
 
     final screens = [
-      const NotificationsScreen(),
-      const HomeScreen(),
+      const StudentCardScreen(),
+      const RingInfoScreen(),
       const HomeScreen(),
       const CalendarScreen(),
       const ProfileScreen(),
@@ -60,9 +60,9 @@ class _MainScreenState extends State<MainScreen> {
               key: navigationKey,
               backgroundColor: Colors.transparent,
               animationCurve: Curves.easeInOut,
-              animationDuration: Duration(milliseconds: 300),
+              animationDuration: const Duration(milliseconds: 200),
               items: items,
-              height: 60,
+              height: 50,
               index: index,
               onTap: (index) => setState(() => this.index = index),
             ),

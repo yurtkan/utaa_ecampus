@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:utaa_ecampus/home.dart';
-import 'package:utaa_ecampus/components/side_menu.dart';
 //import '../screens/home.dart';
 
 void main() {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
+            //statusBarColor: Colors.transparent,
             //systemStatusBarContrastEnforced: false,
             systemNavigationBarColor: Colors.transparent,
             //systemNavigationBarContrastEnforced: false,

@@ -22,7 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Color.fromARGB(255, 0, 145, 228),
+        ),
         centerTitle: true,
         title: Title(
           color: Colors.white,
@@ -63,7 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   end: Alignment.bottomRight,
                   colors: [
                     Color.fromARGB(255, 0, 97, 161),
+                    Color.fromARGB(255, 0, 97, 161),
                     Color.fromARGB(255, 0, 109, 176),
+                    Color.fromARGB(255, 0, 145, 228),
+                    Color.fromARGB(255, 0, 145, 228),
                     Color.fromARGB(255, 0, 145, 228),
                   ],
                 ),
@@ -84,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const Image(
                       image: AssetImage('assets/images/logo/logow.png'),
-                      height: 100,
+                      height: 80,
                     ),
                     const SizedBox(
                       height: 40,

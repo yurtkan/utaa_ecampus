@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 
 import 'login_screen.dart';
 
@@ -9,7 +10,24 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Color.fromARGB(255, 239, 239, 239),
+        ),
+        toolbarHeight: 100,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: Image.asset(
+          'assets/images/logo/logow.png',
+          fit: BoxFit.fitHeight,
+          height: 80,
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Stack(
         children: <Widget>[
           Container(
@@ -19,15 +37,6 @@ class WelcomeScreen extends StatelessWidget {
               image: DecorationImage(
                 image: AssetImage('assets/images/plane-bg.jpg'),
                 fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const Align(
-            alignment: Alignment.topCenter,
-            child: SafeArea(
-              child: Image(
-                image: AssetImage('assets/images/logo/logow.png'),
-                height: 100,
               ),
             ),
           ),
