@@ -37,9 +37,9 @@ class _TestPageState extends State<TestPage> {
         toolbarHeight: 200,
         backgroundColor: Colors.red,
         centerTitle: true,
-        title: Column(
+        title: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(size: 75, Icons.engineering),
             SizedBox(
               height: 10,
@@ -67,7 +67,7 @@ class _TestPageState extends State<TestPage> {
                   ),
                 );
               },
-              child: Text('Welcome PAGE'),
+              child: const Text('Welcome PAGE'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -78,7 +78,7 @@ class _TestPageState extends State<TestPage> {
                   ),
                 );
               },
-              child: Text('Login PAGE'),
+              child: const Text('Login PAGE'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -89,7 +89,7 @@ class _TestPageState extends State<TestPage> {
                   ),
                 );
               },
-              child: Text('Main PAGE'),
+              child: const Text('Main PAGE'),
             ),
           ],
         ),

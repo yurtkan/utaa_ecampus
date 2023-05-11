@@ -14,15 +14,15 @@ class _SideMenuState extends State<SideMenu> {
       body: Container(
         width: MediaQuery.of(context).size.width * 0.80,
         height: double.infinity,
-        color: Color.fromARGB(255, 0, 97, 161),
-        child: SafeArea(
+        color: const Color.fromARGB(255, 0, 97, 161),
+        child: const SafeArea(
           child: Column(
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(30),
+                    padding: EdgeInsets.all(30),
                     child: CircleAvatar(
                       radius: 45,
                       backgroundColor: Color.fromARGB(255, 0, 145, 228),
