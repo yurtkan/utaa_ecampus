@@ -257,6 +257,66 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      left: 30,
+                      right: 30,
+                      bottom: 5,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Events',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 22,
+                              color: Color.fromARGB(255, 101, 101, 101),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Show All',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 101, 101, 101),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 150,
+                    child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 30,
+                        ),
+                        AnnouncementCard(),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        AnnouncementCard(),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        AnnouncementCard(),
+                        SizedBox(
+                          width: 50,
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 70,
                   ),
