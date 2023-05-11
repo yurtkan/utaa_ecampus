@@ -7,6 +7,8 @@ Uygulama adı düzeltilti<br>
 AppIcon değiştirildi<br>
 Splash screen eklendi<br>
 
+# 12.05.2023 - Elif
+Profile Screen yapıldı<br>
 
 ## Flutter Version
 <p>Flutter 3.7.11 • channel stable • https://github.com/flutter/flutter.git<br>
