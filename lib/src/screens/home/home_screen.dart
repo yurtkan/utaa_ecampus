@@ -1,16 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:utaa_ecampus/screens/home/widgets/homewidgets.dart';
+import 'package:utaa_ecampus/src/controllers/main_controller.dart';
+import 'package:utaa_ecampus/src/screens/home/widgets/homewidgets.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
+  final MainController mainController = Get.put(MainController());
+  HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,18 +44,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             HomeScreenButtons(
                               icon: Icons.map,
                               text: 'Campus \n Map',
+                              onPressed: () {
+                                Get.toNamed('/map');
+                              },
                             ),
                             HomeScreenButtons(
                               icon: Icons.calendar_month,
                               text: 'My \n Calendar',
+                              onPressed: () {
+                                mainController.pageIndex(3);
+                              },
                             ),
                             HomeScreenButtons(
                               icon: Icons.directions_bus,
                               text: 'Ring \n Hours',
+                              onPressed: () {
+                                mainController.pageIndex(1);
+                              },
                             ),
                             HomeScreenButtons(
-                              icon: Icons.map,
+                              icon: Icons.restaurant,
                               text: 'Meal \n List',
+                              onPressed: () {
+                                Get.toNamed('/meallist');
+                              },
                             ),
                           ],
                         ),
@@ -71,18 +80,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             HomeScreenButtons(
                               icon: Icons.people,
                               text: 'Attandence',
+                              onPressed: () {
+                                Get.toNamed('/attandence');
+                              },
                             ),
                             HomeScreenButtons(
                               icon: Icons.badge,
                               text: 'Student ID',
+                              onPressed: () {
+                                mainController.pageIndex(0);
+                              },
                             ),
                             HomeScreenButtons(
                               icon: Icons.question_answer,
                               text: 'Contact',
+                              onPressed: () {
+                                Get.toNamed('/contact');
+                              },
                             ),
                             HomeScreenButtons(
                               icon: Icons.account_circle,
                               text: 'My Profile',
+                              onPressed: () {
+                                mainController.pageIndex(4);
+                              },
                             ),
                           ],
                         ),

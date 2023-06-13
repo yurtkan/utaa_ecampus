@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 class HomeScreenButtons extends StatelessWidget {
   final IconData icon;
   final String text;
+  final VoidCallback onPressed;
 
   const HomeScreenButtons({
     super.key,
     required this.icon,
     required this.text,
+    required this.onPressed,
   });
 
   @override
@@ -16,7 +18,7 @@ class HomeScreenButtons extends StatelessWidget {
     return Column(
       children: <Widget>[
         ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(15),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 
@@ -160,7 +162,10 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setGuest();
+                      Get.offAllNamed('/mainscreen');
+                    },
                     child: const Text('Continue without login'),
                   ),
                 ),
@@ -170,5 +175,11 @@ class WelcomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void setGuest() {
+    GetStorage().write('token', 'Guest');
+    GetStorage().write('name', 'Guest');
+    GetStorage().write('mail', 'Guest@Guest');
   }
 }

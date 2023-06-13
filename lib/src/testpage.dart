@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:utaa_ecampus/screens/auth/login_screen.dart';
-import 'package:utaa_ecampus/screens/auth/welcome_screen.dart';
-import 'package:utaa_ecampus/screens/main_screen.dart';
+import 'package:utaa_ecampus/src/screens/auth/login_screen.dart';
+import 'package:utaa_ecampus/src/screens/auth/welcome_screen.dart';
+import 'package:utaa_ecampus/src/screens/main_screen.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({
@@ -85,7 +85,7 @@ class _TestPageState extends State<TestPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MainScreen(),
+                    builder: (context) => MainScreen(),
                   ),
                 );
               },
