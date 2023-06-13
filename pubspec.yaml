@@ -37,9 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
   curved_navigation_bar: ^1.0.3
-  table_calendar: ^3.0.9
   get: ^4.6.5
   get_storage: ^2.1.1
+  syncfusion_flutter_calendar: ^21.2.10
 
 dev_dependencies:
   flutter_test:
