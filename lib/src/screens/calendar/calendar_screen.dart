@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:utaa_ecampus/src/controllers/calendar_controller.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CalendarScreen extends StatelessWidget {
-  final CalendarController calendarController = Get.put(CalendarController());
-
   CalendarScreen({super.key});
 
   @override
@@ -21,7 +20,14 @@ class CalendarScreen extends StatelessWidget {
               color: Colors.black,
             ),
           )),
-      body: Placeholder(),
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 50.0),
+        child: SfCalendar(
+          view: CalendarView.month,
+          firstDayOfWeek: 1,
+          monthViewSettings: MonthViewSettings(showAgenda: true),
+        ),
+      ),
     );
   }
 }

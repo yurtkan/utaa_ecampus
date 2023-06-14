@@ -39,11 +39,11 @@ class MainScreen extends StatelessWidget {
     ];
 
     final screens = [
-      const StudentCardScreen(),
+      StudentCardScreen(),
       const RingInfoScreen(),
       HomeScreen(),
       CalendarScreen(),
-      const ProfileScreen(),
+      ProfileScreen(),
     ];
 
     return Container(

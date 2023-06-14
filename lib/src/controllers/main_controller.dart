@@ -26,6 +26,4 @@ class MainController extends GetxController {
     this.index.value = index;
     update();
   }
-
-  //get pageIndex => index.value;
 }
