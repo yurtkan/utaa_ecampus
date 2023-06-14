@@ -1,47 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:utaa_ecampus/src/controllers/main_controller.dart';
 
 class StudentCardScreen extends StatelessWidget {
   StudentCardScreen({super.key});
-
-  final RxBool _isValid = false.obs;
-  final RxBool _isGuest = true.obs;
-  final RxInt _studentNumber = 111111111.obs;
-  final RxInt _tcNumber = 11111111111.obs;
-  final RxString _name = 'Name Update Error'.obs;
-  final RxString _faculty = 'Faculty Update Error'.obs;
-  final RxString _facultyEng = 'Faculty Update Error'.obs;
-  final RxString _department = 'Department Update Error'.obs;
-  final RxString _departmentEng = 'Department Update Error'.obs;
-  final RxString _photo = ''.obs;
-
-  void checkUser() {
-    String? token = GetStorage().read('token');
-    if (token == null || token == 'Guest') {
-      _isGuest.value = true;
-      _isValid.value = false;
-    } else {
-      _isGuest.value = false;
-      _isValid.value = true;
-      _studentNumber.value = GetStorage().read('studentNumber')!;
-      _tcNumber.value = GetStorage().read('tcNumber')!;
-      _name.value = GetStorage().read('name')!;
-      _faculty.value = GetStorage().read('faculty')!;
-      _facultyEng.value = GetStorage().read('facultyeng')!;
-      _department.value = GetStorage().read('department')!;
-      _departmentEng.value = GetStorage().read('departmenteng')!;
-      _photo.value = GetStorage().read('photo')!;
-    }
-  }
+  final MainController mainController = Get.put(MainController());
 
   @override
   Widget build(BuildContext context) {
-    checkUser();
-
     return Scaffold(
-      appBar: appbar(),
-      body: Obx(() => _isGuest.value == true ? guestCard() : studentCard()),
+      appBar: mainController.isGuest.value == true ? appbarGuest() : appbar(),
+      body: Obx(
+        () =>
+            mainController.isGuest.value == true ? guestCard() : studentCard(),
+      ),
     );
   }
 
@@ -201,17 +174,13 @@ class StudentCardScreen extends StatelessWidget {
                           ),
                         ),
                         clipBehavior: Clip.hardEdge,
-                        child: Obx(
-                          () => _photo.value == ''
-                              ? const Icon(
-                                  Icons.account_box_outlined,
-                                  size: 100,
-                                  color: Colors.grey,
-                                )
-                              : Image.network(
-                                  _photo.value,
-                                  fit: BoxFit.cover,
-                                ),
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: mainController.photo.value,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.cancel_outlined),
                         ),
                       ),
                       const SizedBox(
@@ -247,11 +216,13 @@ class StudentCardScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("$_tcNumber\n"),
-                            Text("$_studentNumber\n"),
-                            Text("$_name\n"),
-                            Text("$_faculty\n($_facultyEng)"),
-                            Text("$_department\n($_departmentEng)"),
+                            Text("${mainController.tcNumber}\n"),
+                            Text("${mainController.studentNumber}\n"),
+                            Text("${mainController.name}\n"),
+                            Text(
+                                " ${mainController.faculty}\n(${mainController.facultyEng})"),
+                            Text(
+                                " ${mainController.department}\n(${mainController.departmentEng})"),
                           ],
                         ),
                       ),
@@ -263,6 +234,16 @@ class StudentCardScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar appbarGuest() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
+      title: const Text("Student Card"),
+      centerTitle: true,
+      automaticallyImplyLeading: false,
     );
   }
 
@@ -282,7 +263,7 @@ class StudentCardScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(7.0),
               child: Obx(
-                () => _isValid.value == true
+                () => mainController.isValid.value == true
                     ? Text.rich(
                         TextSpan(
                           children: [

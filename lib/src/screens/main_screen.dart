@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:get/get.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:utaa_ecampus/src/controllers/main_controller.dart';
 import 'package:utaa_ecampus/src/screens/ringinfo/ringinfo_screen.dart';
 import 'package:utaa_ecampus/src/screens/calendar/calendar_screen.dart';

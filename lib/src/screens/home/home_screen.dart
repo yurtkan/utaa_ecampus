@@ -2,12 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:utaa_ecampus/src/controllers/main_controller.dart';
 import 'package:utaa_ecampus/src/screens/home/widgets/homewidgets.dart';
 
 class HomeScreen extends StatelessWidget {
   final MainController mainController = Get.put(MainController());
   HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,51 +113,140 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                  bottom: 5,
+              if (mainController.isGuest.value)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 30,
+                    right: 30,
+                    top: 10,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.report_problem,
+                          color: Colors.red,
+                          size: 25,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'You are not logged in!',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Please login to use all functionality.',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Icon(
+                          Icons.report_problem,
+                          color: Colors.red,
+                          size: 25,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Today',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.lato(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 22,
-                          color: Color.fromARGB(255, 101, 101, 101),
+              if (!mainController.isGuest.value)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 30,
+                    right: 30,
+                    bottom: 5,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Today',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.lato(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 22,
+                            color: Color.fromARGB(255, 101, 101, 101),
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      'Show All',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.lato(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 14,
-                          color: Color.fromARGB(255, 101, 101, 101),
+                      TextButton(
+                        onPressed: () {
+                          mainController.index.value = 3;
+                        },
+                        child: Text(
+                          'Show All',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 101, 101, 101),
+                            ),
+                          ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              if (!mainController.isGuest.value)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 30,
+                    right: 30,
+                  ),
+                  child: SizedBox(
+                    height: 115,
+                    child: SfCalendar(
+                      view: CalendarView.schedule,
+                      firstDayOfWeek: 1,
+                      headerHeight: 0,
+                      initialDisplayDate: DateTime.now(),
+                      minDate: DateTime.now(),
+                      maxDate: DateTime.now().month.toString().length < 2
+                          ? DateTime.now().day.toString().length < 2
+                              ? DateTime.parse(
+                                  "${DateTime.now().year}-0${DateTime.now().month}-0${DateTime.now().day} 23:59:00Z")
+                              : DateTime.parse(
+                                  "${DateTime.now().year}-0${DateTime.now().month}-${DateTime.now().day} 23:59:00Z")
+                          : DateTime.now().day.toString().length < 2
+                              ? DateTime.parse(
+                                  "${DateTime.now().year}-${DateTime.now().month}-0${DateTime.now().day} 23:59:00Z")
+                              : DateTime.parse(
+                                  "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day} 23:59:00Z"),
+                      scheduleViewSettings: ScheduleViewSettings(
+                        hideEmptyScheduleWeek: false,
+                        monthHeaderSettings: MonthHeaderSettings(height: 0),
+                        weekHeaderSettings: WeekHeaderSettings(height: 0),
+                        dayHeaderSettings: DayHeaderSettings(width: 0),
+                      ),
+                      dataSource: _getDataSource(),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                ),
-                child: SizedBox(
-                  height: 100,
-                  child: Placeholder(),
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 20,
@@ -344,5 +435,71 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _DataSource _getDataSource() {
+    final List<Appointment> appointments = <Appointment>[];
+    appointments.add(Appointment(
+      startTime: DateTime.now().add(Duration(hours: 4)),
+      endTime: DateTime.now().add(Duration(hours: 5)),
+      subject: 'Meeting',
+      color: Colors.red,
+    ));
+    appointments.add(Appointment(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      subject: 'Development Meeting   New York, U.S.A',
+      color: Color(0xFFf527318),
+    ));
+    appointments.add(Appointment(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      subject: 'Project Plan Meeting   Kuala Lumpur, Malaysia',
+      color: Color(0xFFfb21f66),
+    ));
+    appointments.add(Appointment(
+      startTime: DateTime.now().add(Duration(days: 2, hours: 2)),
+      endTime: DateTime.now().add(Duration(days: 2, hours: 3)),
+      subject: 'Support - Web Meeting   Dubai, UAE',
+      color: Color(0xFFf3282b8),
+    ));
+    appointments.add(Appointment(
+      startTime: DateTime.now().add(Duration(days: 1, hours: 1)),
+      endTime: DateTime.now().add(Duration(days: 1, hours: 2)),
+      subject: 'Project Release Meeting   Istanbul, Turkey',
+      color: Color(0xFFf2a7886),
+    ));
+    appointments.add(Appointment(
+        startTime: DateTime.now().add(const Duration(hours: 4, days: -1)),
+        endTime: DateTime.now().add(const Duration(hours: 5, days: -1)),
+        subject: 'Release Meeting',
+        color: Colors.lightBlueAccent,
+        isAllDay: true));
+    appointments.add(Appointment(
+      startTime: DateTime.now().add(const Duration(hours: 2, days: -4)),
+      endTime: DateTime.now().add(const Duration(hours: 4, days: -4)),
+      subject: 'Performance check',
+      color: Colors.amber,
+    ));
+    appointments.add(Appointment(
+      startTime: DateTime.now().add(const Duration(hours: 11, days: -2)),
+      endTime: DateTime.now().add(const Duration(hours: 12, days: -2)),
+      subject: 'Customer Meeting   Tokyo, Japan',
+      color: Color(0xFFffb8d62),
+    ));
+    appointments.add(Appointment(
+      startTime: DateTime.now().add(const Duration(hours: 6, days: 2)),
+      endTime: DateTime.now().add(const Duration(hours: 7, days: 2)),
+      subject: 'Retrospective',
+      color: Colors.purple,
+    ));
+
+    return _DataSource(appointments);
+  }
+}
+
+class _DataSource extends CalendarDataSource {
+  _DataSource(List<Appointment> source) {
+    appointments = source;
   }
 }

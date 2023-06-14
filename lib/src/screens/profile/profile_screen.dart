@@ -1,43 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:utaa_ecampus/src/controllers/main_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
+  final screenHeight = Get.height;
 
   final MainController mainController = Get.put(MainController());
 
-  final RxBool _isGuest = true.obs;
-  final RxInt _studentNumber = 111111111.obs;
-  final RxString _name = 'Name Update Error'.obs;
-  final RxString _faculty = 'Faculty Update Error'.obs;
-  final RxString _department = 'Department Update Error'.obs;
-  final RxString _email = 'Mail Update Error'.obs;
-  final RxString _photo = ''.obs;
-
-  void checkUser() {
-    String? token = GetStorage().read('token');
-    if (token == null || token == 'Guest') {
-      _isGuest.value = true;
-      _name.value = 'Guest';
-    } else {
-      _isGuest.value = false;
-      _studentNumber.value = GetStorage().read('studentNumber')!;
-      _name.value = GetStorage().read('name')!;
-      _faculty.value = GetStorage().read('facultyeng')!;
-      _department.value = GetStorage().read('departmenteng')!;
-      _photo.value = GetStorage().read('photo')!;
-      _email.value = GetStorage().read('email')!;
-    }
+  void logoutUser() async {
+    Get.offAllNamed('/welcome');
+    GetStorage().erase();
+    mainController.index.value = 2;
+    await DefaultCacheManager().emptyCache();
   }
 
   @override
   Widget build(BuildContext context) {
-    checkUser();
     return Scaffold(
-      body: _isGuest.value ? guestProfile() : userProfile(),
+      body: mainController.isGuest.value ? guestProfile() : userProfile(),
     );
   }
 
@@ -69,9 +53,9 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ), // Add some space between the profile picture and text
-        Text(
-          _name.value,
-          style: const TextStyle(
+        const Text(
+          'Guest',
+          style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -91,7 +75,7 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyle(fontSize: 22),
           ),
           trailing: const Icon(Icons.chevron_right_rounded),
-          onTap: () {},
+          onTap: logoutUser,
         ),
         // const Divider(
         //   thickness: 1,
@@ -106,6 +90,9 @@ class ProfileScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(
+          height: Get.height * 0.01,
+        ),
         Padding(
           padding: const EdgeInsets.all(32),
           child: Container(
@@ -125,40 +112,107 @@ class ProfileScreen extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: _photo.value,
+                imageUrl: mainController.photo.value,
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.person),
               ),
             ),
           ),
-        ), // Add some space between the profile picture and text
+        ),
         Text(
-          _name.value,
+          mainController.name.value,
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          _studentNumber.value.toString(),
-          style: const TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
-          ),
+        Divider(
+          thickness: 3,
+          indent: Get.width * 0.2,
+          endIndent: Get.width * 0.2,
         ),
-        Text(
-          _department.value,
-          style: const TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
-          ),
-        ),
-        Text(
-          _email.value,
-          style: const TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Student No : ',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    mainController.studentNumber.value.toString(),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Faculty : ',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    mainController.faculty.value,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Department : ',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    mainController.department.value.toString(),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Student Mail : ',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    mainController.email.value,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
         const Spacer(),
@@ -168,19 +222,6 @@ class ProfileScreen extends StatelessWidget {
           endIndent: 20,
         ),
         ListTile(
-          leading: const Icon(Icons.account_circle_outlined),
-          title: const Text(
-            'Edit Profile',
-            style: TextStyle(fontSize: 22),
-          ),
-          trailing: const Icon(Icons.chevron_right_rounded),
-          onTap: () {},
-        ),
-        const Divider(
-          thickness: 1,
-          height: 0,
-        ),
-        ListTile(
           leading: const Icon(Icons.lock_outline_rounded),
           title: const Text(
             'Password',
@@ -188,21 +229,6 @@ class ProfileScreen extends StatelessWidget {
           ),
           trailing: const Icon(Icons.chevron_right_rounded),
           onTap: () {},
-        ),
-        const Divider(
-          thickness: 1,
-          height: 0,
-        ),
-        ListTile(
-          leading: const Icon(Icons.credit_card_rounded),
-          title: const Text(
-            'Student Card',
-            style: TextStyle(fontSize: 22),
-          ),
-          trailing: const Icon(Icons.chevron_right_rounded),
-          onTap: () {
-            mainController.index.value = 0;
-          },
         ),
         const Divider(
           thickness: 1,
@@ -228,13 +254,16 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyle(fontSize: 22),
           ),
           trailing: const Icon(Icons.chevron_right_rounded),
-          onTap: () {},
+          onTap: logoutUser,
         ),
-        // const Divider(
-        //   thickness: 1,
-        //   height: 0,
-        // ),
-        const Spacer(),
+        const Divider(
+          thickness: 2,
+          indent: 20,
+          endIndent: 20,
+        ),
+        SizedBox(
+          height: Get.height * 0.1,
+        ),
       ],
     );
   }
