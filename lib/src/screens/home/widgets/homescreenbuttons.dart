@@ -21,7 +21,7 @@ class HomeScreenButtons extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(17),
             backgroundColor: Colors.white, // <-- Button color
             foregroundColor: Colors.blue, // <-- Splash color
           ),
@@ -36,7 +36,7 @@ class HomeScreenButtons extends StatelessWidget {
           style: GoogleFonts.lato(
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 10,
+              fontSize: 11,
             ),
           ),
         ),

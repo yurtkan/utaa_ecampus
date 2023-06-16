@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:utaa_ecampus/src/controllers/login_controller.dart';
 
 bool _passwordVisible = false;
 
@@ -17,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final LoginController loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       keyboardType: TextInputType.text,
                       style: const TextStyle(color: Colors.white),
+                      controller: loginController.loginfield,
                       decoration: const InputDecoration(
                         labelText: "Student Mail",
                         labelStyle: TextStyle(color: Colors.white),
@@ -123,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.text,
                       obscureText: !_passwordVisible,
                       style: const TextStyle(color: Colors.white),
+                      controller: loginController.passwordfield,
                       decoration: InputDecoration(
                         labelText: "Password",
                         labelStyle: const TextStyle(color: Colors.white),
@@ -180,7 +185,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (loginController.loginfield.text.isNotEmpty &&
+                              loginController.passwordfield.text.isNotEmpty) {
+                            loginController.loginAPI();
+                          } else {
+                            Get.snackbar('Please fill all the fields',
+                                'Email and Pasword are required',
+                                colorText: Colors.white,
+                                backgroundColor: Colors.red);
+                          }
+                        },
                         child: const Text('Login'),
                       ),
                     ),

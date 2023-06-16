@@ -166,7 +166,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    mainController.faculty.value,
+                    mainController.facultyEng.value,
                     style: const TextStyle(
                       fontSize: 15,
                       color: Colors.grey,
@@ -185,7 +185,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    mainController.department.value.toString(),
+                    mainController.departmentEng.value.toString(),
                     style: const TextStyle(
                       fontSize: 15,
                       color: Colors.grey,
