@@ -25,6 +25,7 @@ class MainController extends GetxController {
   }
 
   void checkUser() {
+    // ignore: no_leading_underscores_for_local_identifiers
     String? _token = GetStorage().read('token');
     if (_token == null || _token == 'Guest') {
       isGuest.value = true;
@@ -74,6 +75,9 @@ class MainController extends GetxController {
       }
       if (GetStorage().read('photo') != null) {
         photo.value = GetStorage().read('photo')!;
+      }
+      if (GetStorage().read('token') != null) {
+        token.value = GetStorage().read('token')!;
       }
     }
   }

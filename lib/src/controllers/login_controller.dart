@@ -27,7 +27,7 @@ class LoginController extends GetxController {
           )
           .toString(),
     };
-
+    //print(bodyRequest);
     try {
       final response = await http.post(Uri.parse(APIurl), body: bodyRequest);
       var data = jsonDecode(response.body);
@@ -64,8 +64,5 @@ class LoginController extends GetxController {
       Get.snackbar('Exception occured Login', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
-    // finally {
-    //   print('Request succefuly terminated');
-    // }
   }
 }

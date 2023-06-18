@@ -158,12 +158,13 @@ class InfoController extends GetxController {
         //GetStorage().write('ring', data);
         //print("Menu fetched from API");
       } else {
+        //print(response.statusCode);
         Get.snackbar('Connection Error Info',
             'Please check your connection and relaunch the app',
             colorText: Colors.white, backgroundColor: Colors.red);
       }
     } catch (e) {
-      print(e);
+      //print(e);
       Get.snackbar('Exception occured Info', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }

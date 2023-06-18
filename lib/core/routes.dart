@@ -58,7 +58,7 @@ class Routes {
       ),
       GetPage(
         name: '/contact',
-        page: () => const ContactScreen(),
+        page: () => ContactScreen(),
       ),
     ];
   }
