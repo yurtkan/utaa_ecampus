@@ -10,17 +10,12 @@ import 'package:utaa_ecampus/src/screens/meallistscreen/meallist_screen.dart';
 import 'package:utaa_ecampus/src/screens/profile/profile_screen.dart';
 import 'package:utaa_ecampus/src/screens/ringinfo/ringinfo_screen.dart';
 import 'package:utaa_ecampus/src/screens/studentcard/studentcard_screen.dart';
-import 'package:utaa_ecampus/src/testpage.dart';
 
 class Routes {
   Routes._();
 
   static List<GetPage> get routes {
     return [
-      GetPage(
-        name: '/test',
-        page: () => const TestPage(),
-      ),
       GetPage(
         name: '/welcome',
         page: () => const WelcomeScreen(),
@@ -47,7 +42,7 @@ class Routes {
       ),
       GetPage(
         name: '/ringinfo',
-        page: () => const RingInfoScreen(),
+        page: () => RingInfoScreen(),
       ),
       GetPage(
         name: '/studentcard',

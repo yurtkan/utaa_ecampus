@@ -21,7 +21,7 @@ class HomeScreenButtons extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
-            padding: const EdgeInsets.all(17),
+            padding: const EdgeInsets.all(15),
             backgroundColor: Colors.white, // <-- Button color
             foregroundColor: Colors.blue, // <-- Splash color
           ),

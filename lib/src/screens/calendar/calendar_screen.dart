@@ -104,7 +104,8 @@ class CalendarScreen extends StatelessWidget {
   }
 
   _DataSource _getDataSource() {
-    return _DataSource(calendarController.appointmentsData);
+    calendarController.getCalList();
+    return _DataSource(calendarController.appointments);
   }
 }
 

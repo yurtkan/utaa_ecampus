@@ -41,9 +41,11 @@ dependencies:
   get_storage: ^2.1.1
   syncfusion_flutter_calendar: ^21.2.10
   cached_network_image: ^3.2.3
-  flutter_cache_manager: ^3.3.0
+  flutter_cache_manager:
   crypto: ^3.0.3
   google_maps_flutter: ^2.3.1
+  http:
+  url_launcher:
 
 dev_dependencies:
   flutter_test:

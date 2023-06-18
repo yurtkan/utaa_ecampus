@@ -13,8 +13,8 @@ class ProfileScreen extends StatelessWidget {
 
   void logoutUser() async {
     Get.offAllNamed('/welcome');
-    GetStorage().erase();
     mainController.index.value = 2;
+    GetStorage().erase();
     await DefaultCacheManager().emptyCache();
   }
 
@@ -222,9 +222,9 @@ class ProfileScreen extends StatelessWidget {
           endIndent: 20,
         ),
         ListTile(
-          leading: const Icon(Icons.lock_outline_rounded),
+          leading: const Icon(Icons.mail_rounded),
           title: const Text(
-            'Password',
+            'Contact',
             style: TextStyle(fontSize: 22),
           ),
           trailing: const Icon(Icons.chevron_right_rounded),
@@ -235,9 +235,9 @@ class ProfileScreen extends StatelessWidget {
           height: 0,
         ),
         ListTile(
-          leading: const Icon(Icons.calendar_month_outlined),
+          leading: const Icon(Icons.lock_outline_rounded),
           title: const Text(
-            'Schedule',
+            'Password',
             style: TextStyle(fontSize: 22),
           ),
           trailing: const Icon(Icons.chevron_right_rounded),

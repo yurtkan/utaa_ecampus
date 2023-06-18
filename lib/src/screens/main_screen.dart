@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:utaa_ecampus/src/controllers/info_controller.dart';
 import 'package:utaa_ecampus/src/controllers/main_controller.dart';
 import 'package:utaa_ecampus/src/screens/ringinfo/ringinfo_screen.dart';
 import 'package:utaa_ecampus/src/screens/calendar/calendar_screen.dart';
@@ -11,7 +12,7 @@ import 'package:utaa_ecampus/src/screens/studentcard/studentcard_screen.dart';
 
 class MainScreen extends StatelessWidget {
   final MainController mainController = Get.put(MainController());
-
+  final InfoController infoController = Get.put(InfoController());
   MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class MainScreen extends StatelessWidget {
 
     final screens = [
       StudentCardScreen(),
-      const RingInfoScreen(),
+      RingInfoScreen(),
       HomeScreen(),
       CalendarScreen(),
       ProfileScreen(),

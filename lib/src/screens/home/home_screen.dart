@@ -3,174 +3,260 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:utaa_ecampus/src/controllers/calendar_controller.dart';
+import 'package:utaa_ecampus/src/controllers/info_controller.dart';
 import 'package:utaa_ecampus/src/controllers/main_controller.dart';
 import 'package:utaa_ecampus/src/screens/home/widgets/homewidgets.dart';
+import 'package:utaa_ecampus/src/screens/informationscreens/info_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final MainController mainController = Get.put(MainController());
+  final InfoController infoController = Get.put(InfoController());
+  final MyCalendarController calendarController =
+      Get.put(MyCalendarController());
+
   HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //mainController.isGuest.value = false;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 10.0,
-                    bottom: 20.0,
+    infoController.getNewsList(3);
+    infoController.getAnnouncementsList(3);
+    infoController.getEventsList(3);
+
+    return Obx(
+      () => Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          bottom: false,
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 10.0,
+                      bottom: 20.0,
+                    ),
+                    child: Image(
+                      image: AssetImage('assets/images/logo/logo.png'),
+                      height: 80,
+                    ),
                   ),
-                  child: Image(
-                    image: AssetImage('assets/images/logo/logo.png'),
-                    height: 80,
-                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        HomeScreenButtons(
-                          icon: Icons.map,
-                          text: 'Campus \n Map',
-                          onPressed: () {
-                            Get.toNamed('/campusmap');
-                          },
-                        ),
-                        HomeScreenButtons(
-                          icon: Icons.calendar_month,
-                          text: 'My \n Calendar',
-                          onPressed: () {
-                            mainController.pageIndex(3);
-                          },
-                        ),
-                        HomeScreenButtons(
-                          icon: Icons.directions_bus,
-                          text: 'Ring \n Hours',
-                          onPressed: () {
-                            mainController.pageIndex(1);
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        HomeScreenButtons(
-                          icon: Icons.restaurant,
-                          text: 'Meal \n List',
-                          onPressed: () {
-                            Get.toNamed('/meallist');
-                          },
-                        ),
-                        HomeScreenButtons(
-                          icon: Icons.badge,
-                          text: 'Student ID',
-                          onPressed: () {
-                            mainController.pageIndex(0);
-                          },
-                        ),
-                        HomeScreenButtons(
-                          icon: Icons.account_circle,
-                          text: 'My Profile',
-                          onPressed: () {
-                            mainController.pageIndex(4);
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
-              ),
-              if (mainController.isGuest.value)
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 30,
                     right: 30,
-                    top: 10,
                   ),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          HomeScreenButtons(
+                            icon: Icons.map,
+                            text: 'Campus \n Map',
+                            onPressed: () {
+                              Get.toNamed('/campusmap');
+                            },
+                          ),
+                          HomeScreenButtons(
+                            icon: Icons.directions_bus,
+                            text: 'Ring \n Hours',
+                            onPressed: () {
+                              mainController.pageIndex(1);
+                            },
+                          ),
+                          HomeScreenButtons(
+                            icon: Icons.restaurant,
+                            text: 'Meal \n List',
+                            onPressed: () {
+                              Get.toNamed('/meallist');
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          HomeScreenButtons(
+                            icon: Icons.badge,
+                            text: 'Student ID',
+                            onPressed: () {
+                              mainController.pageIndex(0);
+                            },
+                          ),
+                          HomeScreenButtons(
+                            icon: Icons.calendar_month,
+                            text: 'Calendar',
+                            onPressed: () {
+                              mainController.pageIndex(3);
+                            },
+                          ),
+                          HomeScreenButtons(
+                            icon: Icons.account_circle,
+                            text: 'My Profile',
+                            onPressed: () {
+                              mainController.pageIndex(4);
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                if (mainController.isGuest.value)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                      right: 30,
+                      top: 10,
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.report_problem,
+                            color: Colors.red,
+                            size: 25,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'You are not logged in!',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Please login to use all functionality.',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.report_problem,
+                            color: Colors.red,
+                            size: 25,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (!mainController.isGuest.value)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                      right: 30,
+                      bottom: 5,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Icon(
-                          Icons.report_problem,
-                          color: Colors.red,
-                          size: 25,
+                        Text(
+                          'Today',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 22,
+                              color: Color.fromARGB(255, 101, 101, 101),
+                            ),
+                          ),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'You are not logged in!',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                        TextButton(
+                          onPressed: () {
+                            mainController.index.value = 3;
+                          },
+                          child: Text(
+                            'Show All',
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.lato(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 14,
+                                color: Color.fromARGB(255, 101, 101, 101),
                               ),
                             ),
-                            Text(
-                              'Please login to use all functionality.',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Icon(
-                          Icons.report_problem,
-                          color: Colors.red,
-                          size: 25,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              if (!mainController.isGuest.value)
+                if (!mainController.isGuest.value)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                      right: 30,
+                    ),
+                    child: SizedBox(
+                      height: 115,
+                      child: SfCalendar(
+                        view: CalendarView.schedule,
+                        firstDayOfWeek: 1,
+                        headerHeight: 0,
+                        initialDisplayDate: DateTime.now(),
+                        minDate: DateTime.now(),
+                        maxDate: DateTime.now().month.toString().length < 2
+                            ? DateTime.now().day.toString().length < 2
+                                ? DateTime.parse(
+                                    "${DateTime.now().year}-0${DateTime.now().month}-0${DateTime.now().day} 23:59:00Z")
+                                : DateTime.parse(
+                                    "${DateTime.now().year}-0${DateTime.now().month}-${DateTime.now().day} 23:59:00Z")
+                            : DateTime.now().day.toString().length < 2
+                                ? DateTime.parse(
+                                    "${DateTime.now().year}-${DateTime.now().month}-0${DateTime.now().day} 23:59:00Z")
+                                : DateTime.parse(
+                                    "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day} 23:59:00Z"),
+                        scheduleViewSettings: ScheduleViewSettings(
+                          hideEmptyScheduleWeek: false,
+                          monthHeaderSettings: MonthHeaderSettings(height: 0),
+                          weekHeaderSettings: WeekHeaderSettings(height: 0),
+                          dayHeaderSettings: DayHeaderSettings(width: 0),
+                        ),
+                        dataSource: _getDataSource(),
+                      ),
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.only(
+                    top: 10,
                     left: 30,
                     right: 30,
-                    bottom: 5,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Today',
+                        'News',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.lato(
                           textStyle: const TextStyle(
@@ -182,7 +268,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          mainController.index.value = 3;
+                          Get.to(
+                            InfoScreen(type: 'news'),
+                            transition: Transition.rightToLeft,
+                          );
                         },
                         child: Text(
                           'Show All',
@@ -199,237 +288,128 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              if (!mainController.isGuest.value)
+                if (infoController.newsList.isNotEmpty)
+                  SizedBox(
+                    height: 170,
+                    child: GetBuilder(
+                      builder: (InfoController infoController) {
+                        return InfoListView(infos: infoController.newsList);
+                      },
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.only(
+                    top: 10,
                     left: 30,
                     right: 30,
                   ),
-                  child: SizedBox(
-                    height: 115,
-                    child: SfCalendar(
-                      view: CalendarView.schedule,
-                      firstDayOfWeek: 1,
-                      headerHeight: 0,
-                      initialDisplayDate: DateTime.now(),
-                      minDate: DateTime.now(),
-                      maxDate: DateTime.now().month.toString().length < 2
-                          ? DateTime.now().day.toString().length < 2
-                              ? DateTime.parse(
-                                  "${DateTime.now().year}-0${DateTime.now().month}-0${DateTime.now().day} 23:59:00Z")
-                              : DateTime.parse(
-                                  "${DateTime.now().year}-0${DateTime.now().month}-${DateTime.now().day} 23:59:00Z")
-                          : DateTime.now().day.toString().length < 2
-                              ? DateTime.parse(
-                                  "${DateTime.now().year}-${DateTime.now().month}-0${DateTime.now().day} 23:59:00Z")
-                              : DateTime.parse(
-                                  "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day} 23:59:00Z"),
-                      scheduleViewSettings: ScheduleViewSettings(
-                        hideEmptyScheduleWeek: false,
-                        monthHeaderSettings: MonthHeaderSettings(height: 0),
-                        weekHeaderSettings: WeekHeaderSettings(height: 0),
-                        dayHeaderSettings: DayHeaderSettings(width: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Announcements',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.lato(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 22,
+                            color: Color.fromARGB(255, 101, 101, 101),
+                          ),
+                        ),
                       ),
-                      dataSource: _getDataSource(),
-                    ),
+                      TextButton(
+                        onPressed: () {
+                          Get.to(
+                            InfoScreen(type: 'announcement'),
+                            transition: Transition.rightToLeft,
+                          );
+                        },
+                        child: Text(
+                          'Show All',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 101, 101, 101),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 30,
-                  right: 30,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'News',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.lato(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 22,
-                          color: Color.fromARGB(255, 101, 101, 101),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        mainController.index.value = 3;
+                if (infoController.announcementsList.isNotEmpty)
+                  SizedBox(
+                    height: 170,
+                    child: GetBuilder(
+                      builder: (InfoController infoController) {
+                        return InfoListView(
+                          infos: infoController.announcementsList,
+                        );
                       },
-                      child: Text(
-                        'Show All',
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    left: 30,
+                    right: 30,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Events',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.lato(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.w800,
-                            fontSize: 14,
+                            fontSize: 22,
                             color: Color.fromARGB(255, 101, 101, 101),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 150,
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 30,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 50,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 30,
-                  right: 30,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Announcements',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.lato(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 22,
-                          color: Color.fromARGB(255, 101, 101, 101),
+                      TextButton(
+                        onPressed: () {
+                          Get.to(
+                            InfoScreen(type: 'event'),
+                            transition: Transition.rightToLeft,
+                          );
+                        },
+                        child: Text(
+                          'Show All',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 101, 101, 101),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        mainController.index.value = 3;
+                    ],
+                  ),
+                ),
+                if (infoController.eventsList.isNotEmpty)
+                  SizedBox(
+                    height: 170,
+                    child: GetBuilder(
+                      builder: (InfoController infoController) {
+                        return InfoListView(
+                          infos: infoController.eventsList,
+                        );
                       },
-                      child: Text(
-                        'Show All',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.lato(
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 14,
-                            color: Color.fromARGB(255, 101, 101, 101),
-                          ),
-                        ),
-                      ),
                     ),
-                  ],
+                  ),
+                SizedBox(
+                  height: 70,
                 ),
-              ),
-              SizedBox(
-                height: 150,
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 30,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 50,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 30,
-                  right: 30,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Events',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.lato(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 22,
-                          color: Color.fromARGB(255, 101, 101, 101),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        mainController.index.value = 3;
-                      },
-                      child: Text(
-                        'Show All',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.lato(
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 14,
-                            color: Color.fromARGB(255, 101, 101, 101),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 150,
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 30,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    AnnouncementCard(),
-                    SizedBox(
-                      width: 50,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 70,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -437,63 +417,8 @@ class HomeScreen extends StatelessWidget {
   }
 
   _DataSource _getDataSource() {
-    final List<Appointment> appointments = <Appointment>[];
-    appointments.add(Appointment(
-      startTime: DateTime.now().add(Duration(hours: 4)),
-      endTime: DateTime.now().add(Duration(hours: 5)),
-      subject: 'Meeting',
-      color: Colors.red,
-    ));
-    appointments.add(Appointment(
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-      subject: 'Development Meeting   New York, U.S.A',
-      color: Color(0xFFf527318),
-    ));
-    appointments.add(Appointment(
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-      subject: 'Project Plan Meeting   Kuala Lumpur, Malaysia',
-      color: Color(0xFFfb21f66),
-    ));
-    appointments.add(Appointment(
-      startTime: DateTime.now().add(Duration(days: 2, hours: 2)),
-      endTime: DateTime.now().add(Duration(days: 2, hours: 3)),
-      subject: 'Support - Web Meeting   Dubai, UAE',
-      color: Color(0xFFf3282b8),
-    ));
-    appointments.add(Appointment(
-      startTime: DateTime.now().add(Duration(days: 1, hours: 1)),
-      endTime: DateTime.now().add(Duration(days: 1, hours: 2)),
-      subject: 'Project Release Meeting   Istanbul, Turkey',
-      color: Color(0xFFf2a7886),
-    ));
-    appointments.add(Appointment(
-        startTime: DateTime.now().add(const Duration(hours: 4, days: -1)),
-        endTime: DateTime.now().add(const Duration(hours: 5, days: -1)),
-        subject: 'Release Meeting',
-        color: Colors.lightBlueAccent,
-        isAllDay: true));
-    appointments.add(Appointment(
-      startTime: DateTime.now().add(const Duration(hours: 2, days: -4)),
-      endTime: DateTime.now().add(const Duration(hours: 4, days: -4)),
-      subject: 'Performance check',
-      color: Colors.amber,
-    ));
-    appointments.add(Appointment(
-      startTime: DateTime.now().add(const Duration(hours: 11, days: -2)),
-      endTime: DateTime.now().add(const Duration(hours: 12, days: -2)),
-      subject: 'Customer Meeting   Tokyo, Japan',
-      color: Color(0xFFffb8d62),
-    ));
-    appointments.add(Appointment(
-      startTime: DateTime.now().add(const Duration(hours: 6, days: 2)),
-      endTime: DateTime.now().add(const Duration(hours: 7, days: 2)),
-      subject: 'Retrospective',
-      color: Colors.purple,
-    ));
-
-    return _DataSource(appointments);
+    calendarController.getCalList();
+    return _DataSource(calendarController.appointments);
   }
 }
 

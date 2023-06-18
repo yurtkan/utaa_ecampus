@@ -1,56 +1,79 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:utaa_ecampus/src/controllers/ring_controller.dart';
+import 'package:utaa_ecampus/src/screens/ringinfo/ringlist_view.dart';
 
-class RingInfoScreen extends StatefulWidget {
-  const RingInfoScreen({super.key});
+class RingInfoScreen extends StatelessWidget {
+  RingInfoScreen({super.key});
+  final RingController ringController = Get.put(RingController());
 
-  @override
-  State<RingInfoScreen> createState() => _RingInfoScreenState();
-}
-
-class _RingInfoScreenState extends State<RingInfoScreen> {
   @override
   Widget build(BuildContext context) {
+    ringController.getRingList();
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        title: const Text("Ring Info"),
-        automaticallyImplyLeading: false,
+      appBar: appBar(),
+      body: Obx(
+        () => ringController.ringList.isNotEmpty
+            ? ringListView(context)
+            : ringListEmpty(),
       ),
-      body: ListView(
+    );
+  }
+
+  Center ringListEmpty() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-            ),
-            child: Column(
-              children: [
-                const Text(
-                  "Ring Info",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae nisi eget nunc ultricies aliquet. Donec euismod, nisl eget ultricies ultrices, nisl nisl aliquam nisl, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget ultricies ultrices, nisl nisl aliquam nisl, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget ultricies ultrices, nisl nisl aliquam nisl, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget ultricies ultrices, nisl nisl aliquam nisl, vitae aliquam nisl nisl vitae nisl. ",
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
+          const Icon(
+            Icons.sync_problem,
+            size: 100,
+            color: Colors.red,
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text('We couldn\'t take the ring list'),
+          const Text('Please try again later.'),
         ],
       ),
     );
+  }
+
+  SingleChildScrollView ringListView(BuildContext context) {
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: Get.height - (Get.height * 0.15),
+        child: GetBuilder(
+          builder: (RingController ringController) {
+            return RingListView(rings: ringController.ringList);
+          },
+        ),
+      ),
+    );
+  }
+
+  AppBar appBar() {
+    return AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            //Get.offAllNamed('/mainscreen');
+            Get.back();
+          },
+        ),
+        centerTitle: true,
+        title: const Text(
+          'Ring Information',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ));
   }
 }
