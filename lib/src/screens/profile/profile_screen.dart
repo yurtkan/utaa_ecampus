@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:utaa_ecampus/src/controllers/main_controller.dart';
@@ -12,10 +11,10 @@ class ProfileScreen extends StatelessWidget {
   final MainController mainController = Get.put(MainController());
 
   void logoutUser() async {
+    GetStorage().erase();
     Get.offAllNamed('/welcome');
     mainController.index.value = 2;
-    GetStorage().erase();
-    await DefaultCacheManager().emptyCache();
+    //await DefaultCacheManager().emptyCache();
   }
 
   @override

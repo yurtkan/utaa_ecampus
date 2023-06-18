@@ -130,6 +130,7 @@ class InfoController extends GetxController {
   }
 
   void infoAPI(int infoLimit, String infoCase) async {
+    // ignore: constant_identifier_names
     const String APIurl =
         'https://athena.squarefox.org/ecampus/api/index.php/notice/list';
     final bodyRequest = {
@@ -150,20 +151,20 @@ class InfoController extends GetxController {
           fetchInfoEvents = data.toString();
           GetStorage().write('event', data);
         } else {
-          Get.snackbar('Connection Error',
+          Get.snackbar('Connection Error Info',
               'Please check your connection and relaunch the app',
               colorText: Colors.white, backgroundColor: Colors.red);
         }
         //GetStorage().write('ring', data);
         //print("Menu fetched from API");
       } else {
-        Get.snackbar('Connection Error',
+        Get.snackbar('Connection Error Info',
             'Please check your connection and relaunch the app',
             colorText: Colors.white, backgroundColor: Colors.red);
       }
     } catch (e) {
-      //print(e);
-      Get.snackbar('Exception occured', e.toString(),
+      print(e);
+      Get.snackbar('Exception occured Info', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
   }

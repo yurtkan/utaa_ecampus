@@ -51,6 +51,7 @@ class RingController extends GetxController {
   }
 
   void ringAPI() async {
+    // ignore: constant_identifier_names
     const String APIurl =
         'https://athena.squarefox.org/ecampus/api/index.php/ring/list';
     final bodyRequest = {};
@@ -62,13 +63,13 @@ class RingController extends GetxController {
         GetStorage().write('ring', data);
         //print("Menu fetched from API");
       } else {
-        Get.snackbar('Connection Error',
+        Get.snackbar('Connection Error Ring',
             'Please check your connection and relaunch the app',
             colorText: Colors.white, backgroundColor: Colors.red);
       }
     } catch (e) {
       //print(e);
-      Get.snackbar('Exception occured', e.toString(),
+      Get.snackbar('Exception occured Ring', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
   }

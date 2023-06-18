@@ -60,7 +60,7 @@ class InfoListView extends StatelessWidget {
                     : const Image(
                         width: 250,
                         height: 100,
-                        image: const AssetImage('assets/images/plane-bg.jpg'),
+                        image: AssetImage('assets/images/plane-bg.jpg'),
                         fit: BoxFit.cover,
                       ),
                 Padding(

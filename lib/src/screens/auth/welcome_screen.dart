@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
+import 'package:utaa_ecampus/src/controllers/main_controller.dart';
 
 import 'login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+  final MainController mainController = Get.put(MainController());
+  WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,12 +114,7 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
+                        Get.to(() => const LoginScreen());
                       },
                       child: const Text('Login'),
                     ),
@@ -179,7 +176,6 @@ class WelcomeScreen extends StatelessWidget {
 
   void setGuest() {
     GetStorage().write('token', 'Guest');
-    GetStorage().write('name', 'Guest');
-    GetStorage().write('mail', 'Guest@Guest');
+    mainController.checkUser();
   }
 }

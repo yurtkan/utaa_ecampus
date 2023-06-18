@@ -14,6 +14,7 @@ class LoginController extends GetxController {
   final passwordfield = TextEditingController();
 
   void loginAPI() async {
+    // ignore: constant_identifier_names
     const String APIurl =
         'https://athena.squarefox.org/ecampus/api/index.php/user/login';
     final bodyRequest = {
@@ -59,8 +60,8 @@ class LoginController extends GetxController {
             colorText: Colors.white, backgroundColor: Colors.red);
       }
     } catch (e) {
-      // print(e);
-      Get.snackbar('Exception occured', e.toString(),
+      //print(e);
+      Get.snackbar('Exception occured Login', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
     // finally {

@@ -18,7 +18,7 @@ class Routes {
     return [
       GetPage(
         name: '/welcome',
-        page: () => const WelcomeScreen(),
+        page: () => WelcomeScreen(),
       ),
       GetPage(
         name: '/login',
@@ -54,11 +54,11 @@ class Routes {
       ),
       GetPage(
         name: '/campusmap',
-        page: () => CampusMapScreen(),
+        page: () => const CampusMapScreen(),
       ),
       GetPage(
         name: '/contact',
-        page: () => ContactScreen(),
+        page: () => const ContactScreen(),
       ),
     ];
   }

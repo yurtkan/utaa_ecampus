@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:utaa_ecampus/src/controllers/ring_controller.dart';
 import 'package:utaa_ecampus/src/screens/ringinfo/ringlist_view.dart';
@@ -38,6 +37,15 @@ class RingInfoScreen extends StatelessWidget {
           ),
           const Text('We couldn\'t take the ring list'),
           const Text('Please try again later.'),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ringController.getRingList();
+            },
+            child: const Text('Try Again'),
+          ),
         ],
       ),
     );
@@ -61,13 +69,6 @@ class RingInfoScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            //Get.offAllNamed('/mainscreen');
-            Get.back();
-          },
-        ),
         centerTitle: true,
         title: const Text(
           'Ring Information',

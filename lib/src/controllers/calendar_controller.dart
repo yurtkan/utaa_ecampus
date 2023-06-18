@@ -9,11 +9,14 @@ import 'package:http/http.dart' as http;
 class MyCalendarController extends GetxController {
   String fetchCal = '';
   RxList<Appointment> appointments = <Appointment>[].obs;
+  String? token = GetStorage().read('token');
   void getCalList() {
     appointments.clear();
     fetchCal = '';
-    calAPI();
-    if (fetchCal == '') {
+    if (token != null && token != '' && token != 'Guest') {
+      calAPI();
+    }
+    if (fetchCal == '' && token != null && token != '' && token != 'Guest') {
       _getCal();
     }
     if (fetchCal != '') {
@@ -26,7 +29,7 @@ class MyCalendarController extends GetxController {
               ('${item['calendar_course']}  /  ${item['calendar_loc']}'),
         );
         if (!appointmentExist) {
-          var color;
+          MaterialColor color;
           if (item['calendar_case'].toString() == 'lab') {
             color = Colors.red;
           } else if (item['calendar_case'].toString() == 'exam') {
@@ -63,10 +66,11 @@ class MyCalendarController extends GetxController {
   }
 
   void calAPI() async {
+    // ignore: constant_identifier_names
     const String APIurl =
         'https://athena.squarefox.org/ecampus/api/index.php/calendar/list';
     final bodyRequest = {
-      'hash': GetStorage().read('token'),
+      'hash': token,
     };
     try {
       final response = await http.post(Uri.parse(APIurl), body: bodyRequest);
@@ -77,13 +81,13 @@ class MyCalendarController extends GetxController {
         GetStorage().write('calendar', data);
         //print("Menu fetched from API");
       } else {
-        Get.snackbar('Connection Error',
+        Get.snackbar('Connection Error Calendar',
             'Please check your connection and relaunch the app',
             colorText: Colors.white, backgroundColor: Colors.red);
       }
     } catch (e) {
       //print(e);
-      Get.snackbar('Exception occured', e.toString(),
+      Get.snackbar('Exception occured Calendar', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
   }

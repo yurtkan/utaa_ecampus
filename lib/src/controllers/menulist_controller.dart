@@ -59,6 +59,7 @@ class MenuListController extends GetxController {
   }
 
   void menuAPI() async {
+    // ignore: constant_identifier_names
     const String APIurl =
         'https://athena.squarefox.org/ecampus/api/index.php/meal/list';
     final bodyRequest = {};
@@ -70,13 +71,13 @@ class MenuListController extends GetxController {
         GetStorage().write('menu', data);
         //print("Menu fetched from API");
       } else {
-        Get.snackbar('Connection Error',
+        Get.snackbar('Connection Error Menu',
             'Please check your connection and relaunch the app',
             colorText: Colors.white, backgroundColor: Colors.red);
       }
     } catch (e) {
       //print(e);
-      Get.snackbar('Exception occured', e.toString(),
+      Get.snackbar('Exception occured Menu', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
   }

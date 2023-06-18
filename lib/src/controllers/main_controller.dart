@@ -25,10 +25,20 @@ class MainController extends GetxController {
   }
 
   void checkUser() {
-    String? token = GetStorage().read('token');
-    if (token == null || token == 'Guest') {
+    String? _token = GetStorage().read('token');
+    if (_token == null || _token == 'Guest') {
       isGuest.value = true;
       name.value = 'Guest';
+      isValid.value = false;
+      studentNumber.value = 111111111;
+      tcNumber.value = 11111111111;
+      faculty.value = 'Faculty Update Error';
+      facultyEng.value = 'Faculty Update Error';
+      department.value = 'Department Update Error';
+      departmentEng.value = 'Department Update Error';
+      email.value = 'Mail Update Error';
+      photo.value = '';
+      token.value = '';
     } else {
       isGuest.value = false;
       if (GetStorage().read('isValid') != null) {
