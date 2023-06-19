@@ -19,9 +19,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    infoController.getNewsList(3);
-    infoController.getAnnouncementsList(3);
-    infoController.getEventsList(3);
+    infoController.getNewsList(20);
+    infoController.getAnnouncementsList(20);
+    infoController.getEventsList(20);
 
     return Obx(
       () => Scaffold(
